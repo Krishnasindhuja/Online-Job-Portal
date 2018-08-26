@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-BEANS=-=-=-=-=-=-=-=-=-=-=- -->
+	
+	<bean id="registerBean" class="beans.RegistrationBean"></bean>
+	<bean id="payBean" class="beans.PaymentBean"></bean>
+	<bean id="domainBean" class="beans.DomainBean"></bean>
+	<bean id="jobBean" class="beans.JobBean"></bean>
+	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-HANDLER MAPPER=-=-=-=-=-=-=-=-=-=-=- -->
+		<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	<property name="mappings">
+        	<props>
+             	<prop key="/AdminController/*">adminController</prop> 
+        	</props>
+    	</property>
+  	</bean>
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-CONTROLLERS=-=-=-=-=-=-=-=-=-=-=- -->
+	
+	<bean name="/login.htm" class="controllers.LoginController">
+		<property name="commandClass">
+			<value type="java.lang.Class">beans.RegistrationBean</value>
+		</property>
+
+		<property name="commandName">
+			<value>login</value>
+		</property>
+		
+		<property name="service" ref="loginService" />
+	</bean>
+	
+	<bean name="/register.htm" class="controllers.RegistrationController">
+		<property name="service" ref="registrationService" />
+		<property name="registerBean" ref="registerBean" />
+		<property name="payBean" ref="payBean" />
+	</bean>
+	
+	<bean name="adminController" class="controllers.AdminController">
+		<property name="methodNameResolver">
+       		<ref bean="paramResolver" />
+    	</property>
+		<property name="service" ref="adminService" />
+		<property name="domainBean" ref="domainBean" />
+		<property name="jobBean" ref="jobBean" />
+	</bean>
+	
+	<bean name="domainController" class="controllers.DomainController">
+		<property name="service" ref="adminService" />
+		
+	</bean>
+	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-URL TO MULTI ACTION CONTROLLER METHOD RESOLVER=-=-=-=-=-=-=-=-=-=-=- -->
+	<bean id="paramResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+	      <property name="paramName" value="action" />
+	</bean>
+	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-DAOIMPLEMENTATIONS=-=-=-=-=-=-=-=-=-=-=- -->
+	<bean id="loginDaoImplementation" class="daoImplementation.LoginDaoImplementation">
+		<property name="template" ref="template"/>
+	</bean>
+	
+	<bean id="registrationDaoImplementation" class="daoImplementation.RegistrationDaoImplementation">
+		<property name="template" ref="template"/>
+	</bean>
+	
+	<bean id="adminDaoImplementation" class="daoImplementation.AdminDaoImplementation">
+		<property name="template" ref="template"/>
+	</bean>
+	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-SERVICES=-=-=-=-=-=-=-=-=-=-=- -->
+	<bean id="loginService" class="services.LoginService">
+		<property name="loginDao" ref="loginDaoImplementation"/>
+	</bean>
+	
+	<bean id="registrationService" class="services.RegistrationService">
+		<property name="registrationDao" ref="registrationDaoImplementation"/>
+	</bean>
+	
+	<bean id="adminService" class="services.AdminService">
+		<property name="adminDao" ref="adminDaoImplementation"/>
+	</bean>
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-VIEW RESOLVERS=-=-=-=-=-=-=-=-=-=-=- -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="suffix" value =".jsp" />
+	</bean>	
+	
+	<!-- =-=-=-=-=-=-=-=-=-=-=-HIBERNATE TEMPLATE=-=-=-=-=-=-=-=-=-=-=-  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@hstslc015:1521:elp"></property>
+		<property name="username" value="elp1125"></property>
+		<property name="password" value="msat123$"></property>
+	</bean>
+
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+
+		<property name="mappingResources">
+			<list>
+ 				<value>mappings/registration.hbm.xml</value>
+ 				<!-- <value>mappings/payment.hbm.xml</value> 
+				<value>mappings/domain.hbm.xml</value>
+ 				<value>mappings/userDomainJob.hbm.xml</value> 
+				<value>mappings/job.hbm.xml</value> -->
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="template" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+</beans>	
+	
