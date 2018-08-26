@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="beans.JobBean" table="JobTable646522">
+    <id name="jobID" column="job_ID" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="domain_ID" name="domainID" type="integer"/>
+    <property column="company_Name" name="companyName" type="java.lang.String"/>
+    <property column="post" name="post" type="java.lang.String"/>
+    <property column="location" name="location" type="java.lang.String"/>
+    <property column="required_Qualification " name="requiredQualification" type="java.lang.Float"/>
+    <property column="required_Experience" name="requiredExperience" type="integer"/>
+   </class>
+</hibernate-mapping>

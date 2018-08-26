@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="beans.PaymentBean" table="PaymentTable646522">
+  	<id name="paymentID" column="payment_ID" type="integer">
+    	<generator class="native"/>
+   	</id>
+   	<property name="emailID" column="email_ID" type="java.lang.String"/>
+   	<property name="ddNumber" column="DD_Number" type="java.lang.String"/>
+	<property name="ddDate" column="DD_Date" type="java.util.Date"/>
+	<property name="ddAmount" column="DD_Amount" type="integer"/>
+	<property name="bankName" column="Bank_Name" type="java.lang.String"/>
+	<property name="bankBranch" column="Bank_Branch" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>

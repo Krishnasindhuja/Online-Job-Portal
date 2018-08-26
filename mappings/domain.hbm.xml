@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="beans.DomainBean" table="DomainTable646522">
+  	<id name="domainID" column="domain_ID" type="integer">
+    	<generator class="native"/>
+   	</id>
+   	<property name="domainName" column="domain_Name" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>

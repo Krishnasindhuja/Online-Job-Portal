@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="beans.UserDomainJobBean" table="UserDomainJobTable646522">
+  	<id name="udjID" column="UJD_ID" type="integer">
+    	<generator class="native"/>
+   	</id>
+  	
+    <property name="emailID" column="email_ID" type="java.lang.String"/>
+    <property name="domainID" column="domain_ID " type="integer"/>
+    <property name="jobID" column="job_ID" type="integer"/>
+  </class>
+</hibernate-mapping>

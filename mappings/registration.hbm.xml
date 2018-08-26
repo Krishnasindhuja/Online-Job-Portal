@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="beans.RegistrationBean" table="RegistrationTable646522">
+    <id name="emailID" column="email_ID" type="java.lang.String">
+      <generator class="assigned"/>
+    </id>
+    <property column="first_Name" name="firstName" type="java.lang.String"/>
+    <property column="last_Name" name="lastName" type="java.lang.String"/>
+    <property column="contact_Number" name="contactNumber" type="long"/>
+    <property column="academic_Qualification" name="academicQualification" type="java.lang.String"/>
+    <property column="percentage" name="percentage" type="float"/>
+    <property column="experience" name="experience" type="integer"/>
+    <property column="skill_Set" name="skillSet" type="java.lang.String"/>
+    <property column="registration_Duration" name="registrationDuration" type="integer"/>
+    <property column="dateOfBirth" name="dateOfBirth" type="java.util.Date"/>
+    <property column="registration_ID" name="userName" type="java.lang.String"/>
+    <property column="password" name="password" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>
